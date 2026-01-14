@@ -5,15 +5,15 @@ A complete action-adventure game inspired by classic Zelda titles (NES, SNES, Ga
 ## 🎮 Features
 
 ### Graphics & Visual Design
-- **16×16 Pixel Art**: All sprites and tiles generated programmatically in classic retro style
+- **32×32 Pixel Art**: All sprites and tiles generated programmatically in classic retro style
 - **NES/SNES Color Palette**: Authentic colors inspired by classic Nintendo games
 - **Smooth Animations**: Walk cycles, sword swings, and enemy animations
 - **Clean UI**: Heart-based health display and enemy counter
 
 ### Gameplay Mechanics
-- **Player Movement**: Smooth WASD controls with pixel-based movement (2 pixels/frame at 60 FPS)
+- **Player Movement**: Smooth WASD controls with pixel-based movement (4 pixels/frame at 60 FPS)
 - **Combat System**:
-  - Left-click sword attacks that swing toward mouse cursor
+  - Left-click sword attacks that swing in your facing direction (last moved direction)
   - Direction-based sword positioning (up, down, left, right)
   - Hit detection with damage calculation
   - Invulnerability frames (500ms) after taking damage
@@ -70,7 +70,7 @@ This creates all sprite and tile images programmatically.
 python main.py
 ```
 
-The game window will open at 640×480 pixels. Use the controls below to play!
+The game window will open at 1024×768 pixels. Use the controls below to play!
 
 ## 🎯 Controls
 
@@ -80,7 +80,7 @@ The game window will open at 640×480 pixels. Use the controls below to play!
 | **A** | Move left |
 | **S** | Move down |
 | **D** | Move right |
-| **Left Mouse Click** | Swing sword toward cursor |
+| **Left Mouse Click** | Swing sword in facing direction |
 | **SPACE** | Start game / Restart after game over |
 | **ESC** | Return to title screen / Exit to menu |
 
@@ -90,7 +90,9 @@ The game window will open at 640×480 pixels. Use the controls below to play!
 Defeat all 4 enemies (2 slimes + 2 skeletons) to achieve victory!
 
 ### Combat
-- Click anywhere on the screen to swing your sword in that direction
+- Click to swing your sword in the direction you're facing (last moved with WASD)
+- Move up (W) then click = sword swings upward
+- Move left (A) then click = sword swings left
 - Sword has a brief cooldown between swings (250ms)
 - Enemies take damage when hit by your sword
 - You take damage when enemies touch you (contact damage)
@@ -160,17 +162,17 @@ Defeat all 4 enemies (2 slimes + 2 skeletons) to achieve victory!
 ## 🔧 Technical Details
 
 ### Display & Graphics
-- **Window Size**: 640×480 pixels (2× scaling for modern displays)
-- **Game Surface**: 320×240 pixels (native resolution)
-- **Tile Size**: 16×16 pixels
-- **Sprite Size**: 16×16 pixels
-- **World Dimensions**: 20×15 tiles (320×240 pixels)
+- **Window Size**: 1024×768 pixels (2× scaling for modern displays)
+- **Game Surface**: 512×384 pixels (native resolution)
+- **Tile Size**: 32×32 pixels
+- **Sprite Size**: 32×32 pixels
+- **World Dimensions**: 16×12 tiles (512×384 pixels)
 - **Frame Rate**: 60 FPS (locked)
 
 ### Movement & Physics
-- **Player Speed**: 2 pixels/frame (120 pixels/second)
-- **Slime Speed**: 1 pixel/frame (60 pixels/second)
-- **Skeleton Speed**: 1.5 pixels/frame (90 pixels/second)
+- **Player Speed**: 4 pixels/frame (240 pixels/second)
+- **Slime Speed**: 2 pixels/frame (120 pixels/second)
+- **Skeleton Speed**: 3 pixels/frame (180 pixels/second)
 - **Movement Type**: Pixel-based (smooth) with tile-based collision detection
 
 ### Combat Parameters
@@ -181,7 +183,7 @@ Defeat all 4 enemies (2 slimes + 2 skeletons) to achieve victory!
 - **Skeleton Health**: 6 half-hearts (3 hits to kill)
 - **Invulnerability Duration**: 500 milliseconds
 - **Sword Swing Duration**: 250 milliseconds
-- **Skeleton Chase Range**: 80 pixels (5 tiles)
+- **Skeleton Chase Range**: 160 pixels (5 tiles)
 
 ### Animation Details
 - **Walk Cycle**: 4 frames at 8-10 ticks per frame (0.4-0.5s cycle)
@@ -196,7 +198,7 @@ Defeat all 4 enemies (2 slimes + 2 skeletons) to achieve victory!
 
 ## 🎨 Asset Generation
 
-All pixel art is generated programmatically using Python and Pillow (PIL). The `assets/generator.py` script creates:
+All pixel art is generated programmatically using Python and Pillow (PIL). The `assets/generator.py` script creates 32×32 pixel sprites by scaling up 16×16 pixel art definitions:
 
 ### Player Sprites
 - 4 directional idle poses (up, down, left, right)
